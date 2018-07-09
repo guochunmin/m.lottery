@@ -1,0 +1,200 @@
+@blue: #007bff;
+@indigo: #6610f2;
+@purple: #6f42c1;
+@pink: #e83e8c;
+@red: #dc3545;
+@orange: #fd7e14;
+@yellow: #ffc107;
+@green: #28a745;
+@teal: #20c997;
+@cyan: #17a2b8;
+@white: #fff;
+@gray: #6c757d;
+@gray-dark: #343a40;
+@primary: #007bff;
+@secondary: #6c757d;
+@success: #28a745;
+@info: #17a2b8;
+@warning: #ffc107;
+@danger: #dc3545;
+@light: #f8f9fa;
+@dark: #343a40;
+@color:#1199F0;
+@font-color:#7E7E7E;
+.border(){
+    border:1px solid #ddd;
+}
+.center(){
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+/*
+ * 移动端底部1pxborder实现方式
+ */
+.border-1px-bottom(@color){
+    position: relative;
+    &:after{
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid @color;
+        content: ' ';    
+    }
+    @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5){
+        &:after{
+           -webkit-transform: scaleY(0.7);
+           transform: scaleY(0.7);
+        }
+    }
+    @media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2){
+        &:after{
+           -webkit-transform: scaleY(0.5);
+           transform: scaleY(0.5);
+        }      
+    }
+    @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3){
+        &:after{
+           -webkit-transform: scaleY(0.33);
+           transform: scaleY(0.33);
+        }      
+    }
+}
+/*
+ * 移动端1pxborder实现方式
+ */
+.border-1px(@color){
+    position: relative;
+    margin-bottom: 20px;
+    border:none;
+    &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid @color;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 200%;
+        height: 200%;
+        -webkit-transform-origin: left top;
+        transform-origin: left top;
+    }
+    @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5){
+        &:after{
+          -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+        }
+    }
+    @media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2){
+        &:after{
+          -webkit-transform: scale(0.5);
+          transform: scale(0.5);
+        }      
+    }
+    @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3){
+        &:after{
+          -webkit-transform: scale(0.33);
+          transform: scale(0.33);
+        }      
+    }
+}
+/*
+ * 移动端没有border样式实现
+ */
+.border-none(){
+    &:after{
+        display: none; 
+    }
+}
+/*
+ * 清除浮动
+ */
+.clear(){
+    zoom:1;
+    &:after{
+        content:"";
+        display:block;
+        height:0;
+        clear:both;
+    }
+}
+/*
+ * 文字左右居中
+ */
+.text-justify(){
+    text-align: justify;
+    &:after{
+        content:'';
+        display: inline-block;
+        width:100%;
+    }
+ }
+/*
+ * 单行文本溢出部分显示省略号
+ */
+.text-ellipsis(){
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*
+ * 多行文本溢出部分显示省略号
+ */
+.text-multi-ellipsis(@row,@height){
+    position: relative;
+    height:auto;
+    max-height:unit(@height * @row,px) !important;
+    line-height:unit(@height,px);
+    overflow: hidden;
+    &:after{
+        content:'...';
+        position: absolute;
+        bottom: 0;
+        right:0;
+        padding: 0 5px 2px 30px;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), #FFFFFF 50%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    }
+}
+.text-ellipsis-none(){
+    &:after{
+        display:none;
+    }
+}
+/*
+ * flex布局封装
+ */
+.flex-wrapper(@wrap:'wrap',@justifyContent:'center',@alignItem:'center',@alignContent:'center'){
+    display:flex;
+    flex-wrap:@wrap;
+    justify-content: @justifyContent;
+    align-items: @alignItem;
+    align-content: @alignContent;
+}
+.flex-empty(){
+    height:0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-image:none;
+    border:none;
+    &:after{
+        display: none; 
+    }
+}
+/*
+ * 自定义tooltip
+ */
+.tooltip(){
+    position: relative;
+    &:hover:after{
+        content:attr(data-tooltip);
+        position: absolute;
+        right:0;
+        bottom: 0;
+    }
+}
